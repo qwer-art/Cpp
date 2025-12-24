@@ -4,30 +4,53 @@
 
 using namespace std;
 
-class Solution {
-public:
-    int minSubArrayLen(int s, vector<int>& nums) {
-        int result = INT32_MAX;
-        int sum = 0; // 滑动窗口数值之和
-        int i = 0; // 滑动窗口起始位置
-        int subLength = 0; // 滑动窗口的长度
-        for (int j = 0; j < nums.size(); j++) {
-            sum += nums[j];
-            // 注意这里使用while，每次更新 i（起始位置），并不断比较子序列是否符合条件
-            while (sum >= s) {
-                subLength = (j - i + 1); // 取子序列的长度
-                result = result < subLength ? result : subLength;
-                sum -= nums[i++]; // 这里体现出滑动窗口的精髓之处，不断变更i（子序列的起始位置）
-            }
-        }
-        // 如果result没有被赋值的话，就返回0，说明没有符合条件的子序列
-        return result == INT32_MAX ? 0 : result;
+
+// 1. 209.长度最小的子数组
+// int main() {
+//     // 测试用例
+//     int s = 7;
+//     vector<int> nums = {2, 3, 1, 2, 4, 3};
+
+//     cout << "输入: s = " << s << ", nums = [";
+//     for (size_t i = 0; i < nums.size(); i++) {
+//         cout << nums[i];
+//         if (i < nums.size() - 1) cout << ", ";
+//     }
+//     cout << "]" << endl;
+
+//     int result = minSubArrayLen(s, nums);
+
+//     cout << "输出: " << result << endl;
+//     return 0;
+// }
+int32_t minSubArrayLen(int32_t s,std::vector<int32_t> const& nums){
+    if (0 == nums.size() && s > 0){
+        return INT32_MAX;
     }
-};
+    int32_t min_length = INT32_MAX;
+    int32_t i = 0; // 虫头
+    int32_t j = 0; // 虫尾
+    int32_t sum = 0; // 总和
+
+    for(int32_t j{0};j < nums.size();++j){
+        sum = sum + nums[j];
+        while (sum >= s)
+        {
+            // 1. 先记录
+            int32_t length = (j - i + 1);
+            // 2. 比大小
+            if (length < min_length){
+                min_length = length;
+            }
+            // 3. 虫子往前
+            sum = sum - nums[i];
+            i = i + 1;
+        }
+    }
+    return min_length;
+}
 
 int main() {
-    Solution solution;
-
     // 测试用例
     int s = 7;
     vector<int> nums = {2, 3, 1, 2, 4, 3};
@@ -39,7 +62,7 @@ int main() {
     }
     cout << "]" << endl;
 
-    int result = solution.minSubArrayLen(s, nums);
+    int result = minSubArrayLen(s, nums);
 
     cout << "输出: " << result << endl;
     return 0;
