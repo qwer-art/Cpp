@@ -50,20 +50,43 @@ int32_t minSubArrayLen(int32_t s,std::vector<int32_t> const& nums){
     return min_length;
 }
 
-int main() {
-    // 测试用例
-    int s = 7;
-    vector<int> nums = {2, 3, 1, 2, 4, 3};
+// 2. 27. 移除元素
+int removeElement(vector<int>& nums, int val){
+    if (0 == nums.size()){
+        return 0;
+    }
+    int32_t slow = 0;
+    int32_t size = 0;
+    for(int32_t fast{0};fast < nums.size();fast++){
+        if (nums[fast] != val){
+            nums[slow] = nums[fast];
+            size++;
+            slow++;
+        }
+    }
+    return size;
+}
 
-    cout << "输入: s = " << s << ", nums = [";
+int main() {
+    // 测试 removeElement
+    vector<int> nums = {0, 1, 2, 2, 3, 0, 4, 2};
+    int val = 2;
+
+    cout << "输入: nums = [";
     for (size_t i = 0; i < nums.size(); i++) {
         cout << nums[i];
         if (i < nums.size() - 1) cout << ", ";
     }
+    cout << "], val = " << val << endl;
+
+    int newLength = removeElement(nums, val);
+
+    cout << "输出: " << newLength << ", nums = [";
+    for (int i = 0; i < newLength; i++) {
+        cout << nums[i];
+        if (i < newLength - 1) cout << ", ";
+    }
     cout << "]" << endl;
 
-    int result = minSubArrayLen(s, nums);
-
-    cout << "输出: " << result << endl;
     return 0;
 }
