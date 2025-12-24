@@ -67,24 +67,41 @@ int removeElement(vector<int>& nums, int val){
     return size;
 }
 
-int main() {
-    // 测试 removeElement
-    vector<int> nums = {0, 1, 2, 2, 3, 0, 4, 2};
-    int val = 2;
-
-    cout << "输入: nums = [";
-    for (size_t i = 0; i < nums.size(); i++) {
-        cout << nums[i];
-        if (i < nums.size() - 1) cout << ", ";
+// 3. 344.反转字符串
+void reverseString(vector<char>& s) {
+    if (0 == s.size()){
+        return;
     }
-    cout << "], val = " << val << endl;
+    int32_t start = 0;
+    int32_t end = s.size() - 1;
+    while (start <= end)
+    {
+        char keep = s[start];
+        s[start] = s[end];
+        s[end] = keep;
+        start++;
+        end--;
+    }
+    return;
+}
 
-    int newLength = removeElement(nums, val);
+int main() {
+    // 测试 reverseString
+    vector<char> s = {'H', 'a', 'n', 'n', 'a', 'h'};
 
-    cout << "输出: " << newLength << ", nums = [";
-    for (int i = 0; i < newLength; i++) {
-        cout << nums[i];
-        if (i < newLength - 1) cout << ", ";
+    cout << "输入: s = [";
+    for (size_t i = 0; i < s.size(); i++) {
+        cout << "\"" << s[i] << "\"";
+        if (i < s.size() - 1) cout << ", ";
+    }
+    cout << "]" << endl;
+
+    reverseString(s);
+
+    cout << "输出: [";
+    for (size_t i = 0; i < s.size(); i++) {
+        cout << "\"" << s[i] << "\"";
+        if (i < s.size() - 1) cout << ", ";
     }
     cout << "]" << endl;
 
