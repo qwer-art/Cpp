@@ -1,0 +1,18 @@
+# VSCode
+.vscode/
+
+# Build directory
+build/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+
+# Compiled output
+*.o
+*.exe
+*.out
+*.app
